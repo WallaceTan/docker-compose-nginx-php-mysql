@@ -1,0 +1,26 @@
+web:
+  image: nginx:latest
+  ports:
+    - "80:80"
+  volumes:
+    - ./website:/website
+    - ./website/no_hostname.html:/usr/share/nginx/html/index.html
+    - ./conf.d/site.conf:/etc/nginx/conf.d/site.conf
+    - ./conf.d/no_hostname.conf:/etc/nginx/conf.d/default.conf
+  links:
+    - php
+#  stdin_open: true
+#  tty: true
+# working_dir: /usr/src/ansible
+#  container_name: nginx-reverse-proxy
+#  hostname: nginx
+
+# dns: 192.168.130.144
+#  volumes:
+#  - ~/.ssh/keys:/usr/src/ansible/ssh_keys
+#  - ~/Projects/nectar-ansible:/usr/src/ansible
+
+php:
+  image: php:7-fpm
+  volumes:
+    - ./website:/website
