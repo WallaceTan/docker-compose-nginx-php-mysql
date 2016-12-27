@@ -2,6 +2,7 @@ web:
   image: nginx:latest
   ports:
     - "80:80"
+    - "443:443"
   volumes:
     - ./website:/website
     - ./website/no_hostname.html:/usr/share/nginx/html/index.html
@@ -24,3 +25,22 @@ php:
   image: php:7-fpm
   volumes:
     - ./website:/website
+
+mysql:
+# image: mysql/mysql-server
+  image: mysql:latest
+# container_name: mysql-server
+# hostname: mysql-server
+# ports:
+#   - "3306:3306" # I have tried both ports and expose "3306". Still doesn't work
+  environment:
+    - DEBUG=0
+#   - MYSQL_ROOT_PASSWORD=my-secret-pw
+    - MYSQL_ROOT_PASSWORD="secret"
+#   - MYSQL_USER=django
+#   - MYSQL_PASSWORD=secret
+#   - MYSQL_DATABASE=myAppDB
+# volumes:
+#   - ./volumes/db_data:/var/lib/mysql
+
+## docker run --name mysql-server -e MYSQL_ROOT_PASSWORD=P@ssw0rd -d mysql:latest
